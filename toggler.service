@@ -1,0 +1,12 @@
+[Unit]
+Description=GPIO Toggler Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 toggler.py
+WorkingDirectory=/home/pi/gpio-toggler/src/gpio-toggler/
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
