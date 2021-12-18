@@ -2,6 +2,9 @@
 import sys
 import time
 import argparse
+import logging
+
+logging.basicConfig(format="%(asctime)s %(message)s", datefmt="%Y-%m-%dT%H:%M:%S",filename='applog.txt', level=logging.INFO)
 
 parser = argparse.ArgumentParser(description='I/O Control')
 parser.add_argument("-i", "--input", type=int,help="Select the input")
@@ -72,6 +75,7 @@ def pin_control(pin_in,pin_out):
     if(sysfs_handle):
         in_pin_status = sysfs_handle.read()
         print(f"GPIO pin {pin_in} is {in_pin_status}")
+        logging.info(f"gpio {pin_in} {'HIGH' if in_pin_status==1 else 'LOW'}")
     else:
         print(f"Can't read gpio{pin_in}/value.")
         sysfs_handle.close()
