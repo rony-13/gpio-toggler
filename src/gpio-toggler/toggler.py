@@ -29,6 +29,7 @@ def set_pin_dir(pin_no,pin_dir):
         print("Can't open gpio/export.  Something went wrong. Check for root access.")
         sysfs_handle.close()
         return False
+    sysfs_handle.close()
     
     # Set In/Out for exported GPIO
     try:
@@ -44,6 +45,7 @@ def set_pin_dir(pin_no,pin_dir):
         print("Can't open gpio/direction. Check for root access.")
         sysfs_handle.close()
         return False
+    sysfs_handle.close()
 
     # Setting Default as turned off
     if(pin_dir=='out')
@@ -55,6 +57,7 @@ def set_pin_dir(pin_no,pin_dir):
             print(f"Can't open gpio{pin_no}/value. ")
             sysfs_handle.close()
             return False
+    sysfs_handle.close()
     
     return True
 
@@ -73,6 +76,7 @@ def pin_control(pin_in,pin_out):
         print(f"Can't read gpio{pin_in}/value.")
         sysfs_handle.close()
         return False
+    sysfs_handle.close()
 
     # Output Pin Current Status Read
     try:
@@ -88,6 +92,7 @@ def pin_control(pin_in,pin_out):
         print(f"Can't read gpio{pin_in}/value.")
         sysfs_handle.close()
         return False
+    sysfs_handle.close()
     
     # PIN Control
     sysfs_handle = open(f"/sys/class/gpio/gpio{pin_out}/value", "w")
@@ -102,6 +107,9 @@ def pin_control(pin_in,pin_out):
         print(f"Can't open gpio{pin_out}/value. ")
         sysfs_handle.close()
         return False
+    sysfs_handle.close()
+
+    return True
 
 
 if __name__ == "__main__":
@@ -112,11 +120,11 @@ if __name__ == "__main__":
         sys.exit('Could not set input properly')
     if(set_output):
         sys.exit('Could not set output properly')
-    # just for simplicity now
-    i = 0
-    while(i<10):
+    
+    # just for simplicity now, will improve later
+    while(True):
         success = pin_control(input_pin,output_pin)
-        time.sleep(1)
         if(not success):
             break
-    print('Finally end for now')
+        time.sleep(1)
+    print('Finally ended something good for now. Got some errors to handle')
