@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import time
 import argparse
 
 parser = argparse.ArgumentParser(description='I/O Control')
@@ -115,6 +116,7 @@ if __name__ == "__main__":
     i = 0
     while(i<10):
         success = pin_control(input_pin,output_pin)
+        time.sleep(1)
         if(not success):
             break
     print('Finally end for now')
